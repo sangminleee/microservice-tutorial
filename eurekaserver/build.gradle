@@ -1,0 +1,45 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'com.optimagrowth'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.5")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 1. 애플리케이션 구성을 검색하기 위해, 스프링 컨피그 서버에 연결하는 클라이언트 의존 추가
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+    // 2. 유레카 라이브러리 위한 의존 추가
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server') {
+        // 3. 넷플릭스 리본 라이브러리 제거
+        exclude group: 'org.springframework.cloud', module: 'spring-cloud-starter-ribbon'
+        exclude group: 'com.netflix.ribbon', module: 'ribbon-eureka'
+    }
+
+    // 4. 스프링 클라우드 로드 밸런서 라이브러리 의존 추가
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer:3.1.5'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

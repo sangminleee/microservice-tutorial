@@ -1,4 +1,5 @@
 rootProject.name = 'microservices'
 include 'licensing-service'
 include 'configserver'
+include 'eurekaserver'
 
