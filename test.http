@@ -1,0 +1,15 @@
+GET http://localhost:8080/v1/organization/optimaGrowth/license/1234
+Content-Type: application/json
+
+###
+POST http://localhost:8080/v1/organization/1234/license
+Content-Type: application/json
+Accept: application/json
+
+{
+  "licenseId": "1234",
+  "organizationId": "optimaGrowth",
+  "description": "설명",
+  "productName": "제품",
+  "licenseType": "일반"
+}
