@@ -1,8 +1,5 @@
 server:
-  port: 8082
-
-example:
-  property: I AM THE DEFAULT
+  port: 8081
 
 spring:
   datasource:
