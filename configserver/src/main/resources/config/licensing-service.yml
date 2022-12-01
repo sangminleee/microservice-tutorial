@@ -26,9 +26,13 @@ management:
 
 eureka:
   instance:
+    # 서비스 이름 대신 서비스 IP 주소 등록
     preferIpAddress: true
   client:
+    # 유레카 서비스 등록 여부
     registerWithEureka: true
+    # 레지스트리 사본을 로컬에 내려받기
     fetchRegistry: true
+    # 유레카 서비스의 위치 설정
     serviceUrl:
       defaultZone: http://localhost:8070/eureka/
