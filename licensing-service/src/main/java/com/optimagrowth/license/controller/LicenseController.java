@@ -5,6 +5,10 @@ import com.optimagrowth.license.service.LicenseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeoutException;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -16,6 +20,30 @@ public class LicenseController {
 
   public LicenseController(final LicenseService licenseService) {
     this.licenseService = licenseService;
+  }
+
+  private void sleep() throws TimeoutException {
+    try {
+      Thread.sleep(3000);
+      throw new TimeoutException("시간 초과");
+    } catch (InterruptedException e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+  private void randomlyRunLong() throws TimeoutException {
+    final Random random = new Random();
+    final int randomNum = random.nextInt(3) + 1;
+    if (randomNum == 3) {
+      sleep();
+    }
+  }
+
+  @GetMapping
+  public ResponseEntity<List<License>> getLicensesByOrganization(
+      @PathVariable("organizationId") final String organizationId
+  ) throws TimeoutException {
+    return ResponseEntity.ok(this.licenseService.getLicensesByOrganization(organizationId));
   }
 
   @GetMapping("/{licenseId}")

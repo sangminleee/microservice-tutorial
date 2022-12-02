@@ -1,3 +1,9 @@
+# config: 8071
+# eureka: 8070
+# organization: 8081
+# licensing : 8082
+
+####
 POST http://localhost:8081/v1/organization
 Content-Type: application/json
 Accept: application/json
@@ -16,12 +22,11 @@ GET http://localhost:8081/v1/organization/{{organizationId}}
 Content-Type: application/json
 
 ###
-POST http://localhost:8082/v1/organization/1234/license
+POST http://localhost:8082/v1/organization/{{organizationId}}/license
 Content-Type: application/json
 Accept: application/json
 
 {
-  "licenseId": "1234",
   "organizationId": "{{organizationId}}",
   "description": "설명",
   "productName": "제품",
@@ -31,5 +36,9 @@ Accept: application/json
 > {% client.global.set("licenseId", response.body.licenseId); %}
 
 ###
-GET http://localhost:8082/v1/organization/{{organizationId}}/license/{{licenseId}}
+GET http://localhost:8082/v1/organization/{{organizationId}}/license
 Content-Type: application/json
+
+###
+GET http://localhost:8082/actuator
+
