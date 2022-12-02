@@ -1,6 +1,6 @@
 rootProject.name = 'microservices'
 include 'licensing-service'
-include 'configserver'
-include 'eurekaserver'
+include 'config-server'
+include 'eureka-server'
 include 'organization-service'
 
